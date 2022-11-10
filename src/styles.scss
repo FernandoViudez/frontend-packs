@@ -2,3 +2,21 @@
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+
+* {
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  // color: $white;
+}
+
+html {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.h-100vh {
+  min-height: 100vh;
+}

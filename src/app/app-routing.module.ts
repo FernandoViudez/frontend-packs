@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { WalletIsConnectedGuard } from './guards/wallet-is-connected/wallet-is-connected.guard';
 import { AppRouteNames, _APP_ROUTES_ } from './utils/app-route-names.utils';
 
 const routes: Routes = [
@@ -11,9 +12,9 @@ const routes: Routes = [
       ),
   },
   {
-    path: AppRouteNames.nftReveal,
-    loadComponent: () =>
-      import('./pages/nft-reveal/nft-reveal.component').then((c) => c.NftRevealComponent),
+    path: AppRouteNames.empty,
+    canLoad: [WalletIsConnectedGuard],
+    loadChildren: () => import('./layout/layout.module').then((c) => c.LayoutModule),
   },
   {
     path: AppRouteNames.empty,
