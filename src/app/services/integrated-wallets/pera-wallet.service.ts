@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { PeraWalletConnect } from '@perawallet/connect';
 import { catchError, from, map, Observable, throwError } from 'rxjs';
 import { Account } from 'src/app/interfaces/account.interface';
 import { BlockchainService } from '../../base/blockchain-service.base';
-import { PeraWalletConnect } from '@perawallet/connect';
 
 @Injectable({
   providedIn: 'root',

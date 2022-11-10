@@ -30,6 +30,19 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "algosdk",
+              "js-sha3",
+              "query-string",
+              "@perawallet/connect",
+              "typedarray-to-buffer",
+              "@walletconnect/window-getters",
+              "@walletconnect/window-metadata",
+              "@walletconnect/socket-transport",
+              "@walletconnect/socket-transport",
+              "@walletconnect/environment",
+              "is-typedarray"
+            ],
             "outputPath": "dist/",
             "index": "src/index.html",
             "main": "src/main.ts",
