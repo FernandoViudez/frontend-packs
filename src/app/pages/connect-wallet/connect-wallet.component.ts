@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PeraWalletConnect } from '@perawallet/connect';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { IntegratedWallet } from 'src/app/services/integrated-wallets/integrated-wallets';
+import { INTEGRATED_WALLETS } from '../../services/integrated-wallets/integrated-wallets';
+import { WalletHandlerService } from '../../services/wallet-handler.service';
+import { _APP_ROUTES_ } from '../../utils/app-route-names.utils';
 
 @Component({
   selector: 'app-connect-wallet',
@@ -10,32 +14,18 @@ import { PeraWalletConnect } from '@perawallet/connect';
   styleUrls: ['./connect-wallet.component.scss'],
 })
 export class ConnectWalletComponent implements OnInit {
-  constructor() {}
+  integratedWallets = INTEGRATED_WALLETS;
+
+  constructor(
+    private readonly walletHandlerService: WalletHandlerService,
+    private readonly router: Router
+  ) {}
 
   ngOnInit(): void {}
 
-  title = 'perawallet';
-  peraWallet = new PeraWalletConnect({
-    shouldShowSignTxnToast: false,
-  });
-  connectButton: any = document.querySelector('#titile');
-  accountAddress: string = '';
-
-  handleConnectWalletClick() {
-    this.peraWallet
-      .connect()
-      .then((newAccounts) => {
-        this.peraWallet.connector?.on('disconnect', this.handleDisconnectWalletClick);
-
-        console.log(newAccounts[0]);
-      })
-      .catch((error) => {
-        if (error?.data?.type !== 'CONNECT_MODAL_CLOSED') {
-        }
-      });
-  }
-
-  handleDisconnectWalletClick() {
-    this.peraWallet.disconnect();
+  handleWalletConnection(wallet: IntegratedWallet): void {
+    this.walletHandlerService.connectWalletByIntegrationSelected(wallet).subscribe((response) => {
+      this.router.navigateByUrl(_APP_ROUTES_.nftReveal);
+    });
   }
 }

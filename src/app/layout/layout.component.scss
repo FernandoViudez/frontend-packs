@@ -1,0 +1,16 @@
+// General
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: background-image 200ms;
+}
+
+.header,
+.footer {
+  height: auto;
+}
+
+.content {
+  flex: 1;
+}
