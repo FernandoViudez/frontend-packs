@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { IntegratedWallet } from 'src/app/services/integrated-wallets/integrated-wallets';
+import { environment } from '../../../environments/environment';
+import { instanceOfConnectionAttemptFailed } from '../../interfaces/connection-attempt.-failed.interface';
 import { INTEGRATED_WALLETS } from '../../services/integrated-wallets/integrated-wallets';
 import { WalletHandlerService } from '../../services/wallet-handler.service';
 import { _APP_ROUTES_ } from '../../utils/app-route-names.utils';
@@ -13,7 +15,7 @@ import { _APP_ROUTES_ } from '../../utils/app-route-names.utils';
   templateUrl: './connect-wallet.component.html',
   styleUrls: ['./connect-wallet.component.scss'],
 })
-export class ConnectWalletComponent implements OnInit {
+export class ConnectWalletComponent {
   integratedWallets = INTEGRATED_WALLETS;
 
   constructor(
@@ -21,11 +23,14 @@ export class ConnectWalletComponent implements OnInit {
     private readonly router: Router
   ) {}
 
-  ngOnInit(): void {}
-
   handleWalletConnection(wallet: IntegratedWallet): void {
-    this.walletHandlerService.connectWalletByIntegrationSelected(wallet).subscribe((response) => {
-      this.router.navigateByUrl(_APP_ROUTES_.nftReveal);
+    this.walletHandlerService.connectWalletByIntegrationSelected(wallet).subscribe({
+      next: (response) => {
+        if (!instanceOfConnectionAttemptFailed(response))
+          this.router.navigateByUrl(_APP_ROUTES_.nftReveal);
+
+        if (!environment.production) console.log(response);
+      },
     });
   }
 }

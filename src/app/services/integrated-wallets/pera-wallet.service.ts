@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PeraWalletConnect } from '@perawallet/connect';
-import { catchError, from, map, Observable, throwError } from 'rxjs';
+import { from, map, Observable } from 'rxjs';
 import { Account } from 'src/app/interfaces/account.interface';
 import { BlockchainService } from '../../base/blockchain-service.base';
 
@@ -20,10 +20,10 @@ export class PeraWalletService extends BlockchainService {
       map((address) => {
         this.peraWallet.connector?.on('disconnect', this.handleDisconnectWalletClick);
         return { walletAddress: address[0] };
-      }),
-      catchError((error) => throwError(() => new Error(error)))
+      })
     );
   }
+
   handleDisconnectWalletClick() {
     this.peraWallet.disconnect();
   }
