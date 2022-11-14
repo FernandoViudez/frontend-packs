@@ -16,6 +16,7 @@ import { _APP_ROUTES_ } from '../../utils/app-route-names.utils';
   styleUrls: ['./connect-wallet.component.scss'],
 })
 export class ConnectWalletComponent {
+  gameplayVideoUrl = environment.srcUrl + '/videos/trantorian-gametrailer.mp4';
   integratedWallets = INTEGRATED_WALLETS;
 
   constructor(
