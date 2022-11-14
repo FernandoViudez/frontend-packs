@@ -31,6 +31,10 @@
     "module": "es2020",
     "lib": ["es2020", "dom"]
   },
+  "typeAcquisition": {
+    "enable": true,
+    "include": [ "node" ]
+},
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
