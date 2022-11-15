@@ -1,0 +1,18 @@
+<div class="loading-screen">
+  <div class="lds-roller">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+<img
+  [src]="loadingPage"
+  class="loading-screen-background-image"
+  (loaded)="bgImgLoaded = true"
+  [class.hidden]="!bgImgLoaded"
+  [class.fade-in]="bgImgLoaded" />
