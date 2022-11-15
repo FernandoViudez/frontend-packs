@@ -1,6 +1,22 @@
-<button (click)="handleWalletConnection(integratedWallets.myAlgo)">
-  Connect Wallet With My Algo
-</button>
-<button id="title" (click)="handleWalletConnection(integratedWallets.peraWallet)">
-  Connect Wallet With Pera Wallet
-</button>
+<section class="container-fluid position-relative">
+  <video [src]="gameplayVideoUrl" autoplay loop [muted]="'muted'"></video>
+
+  <h1>TRANTORIAN</h1>
+  <article>
+    <button
+      type="button"
+      class="my-algo"
+      (click)="handleWalletConnection(integratedWallets.myAlgo)">
+      <img class="my-algo-img" src="../../../assets/images/myalgo.png" />
+      <span>My Algo</span>
+    </button>
+
+    <button
+      type="button"
+      class="pera"
+      (click)="handleWalletConnection(integratedWallets.peraWallet)">
+      <img class="pera-img" src="../../../assets/images/logomark-white.svg" />
+      <span>Pera</span>
+    </button>
+  </article>
+</section>

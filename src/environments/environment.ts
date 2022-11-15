@@ -10,4 +10,5 @@ export const environment = {
     unitName: '<asa-unit-name>',
     manager: '<manager-addr>',
   },
+  srcUrl: 'https://dev-src.trantorian.network',
 };
