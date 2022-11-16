@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { filter, mergeMap, Observable, toArray } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AssetHolding } from '../interfaces/asset-holding.interface';
 import { Asset } from '../interfaces/asset-interface';
@@ -13,22 +14,17 @@ export class PackService extends IndexerService {
     super();
   }
 
-  async getHoldingPacks(account: string) {
-    const accAssets = await this.getAccountAssets(account);
-    return await this.filterOfficialPacks(accAssets);
+  getHoldingPacks(account: string) {
+    return this.filterOfficialPacks(this.getAccountAssets(account));
   }
 
-  private async filterOfficialPacks(accountAssets: AssetHolding[]): Promise<Asset[]> {
-    const packs: Asset[] = [];
-    for (let asset of accountAssets) {
-      if (asset.amount > 0 && !asset['is-frozen']) {
-        const holdingAsset = await this.getAssetById(asset['asset-id'] as number);
-        if (this.isOfficialPack(holdingAsset)) {
-          packs.push(holdingAsset);
-        }
-      }
-    }
-    return packs;
+  private filterOfficialPacks(accountAssets: Observable<AssetHolding>) {
+    return accountAssets.pipe(
+      filter((val) => val.amount > 0 && !val['is-frozen']),
+      mergeMap((res) => this.getAssetById(res['asset-id'])),
+      filter((asset) => this.isOfficialPack(asset)),
+      toArray()
+    );
   }
 
   private isOfficialPack(asset: Asset) {
