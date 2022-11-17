@@ -1,4 +1,4 @@
-export interface Asset {
+export interface IndexerAsset {
   ['created-at-round']: number;
   deleted: boolean;
   index: number;

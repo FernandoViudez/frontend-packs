@@ -3,7 +3,9 @@ import { Indexer } from 'algosdk';
 import { Observable, from, map, tap, mergeMap, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AssetHolding } from '../interfaces/asset-holding.interface';
-import { Asset } from '../interfaces/asset-interface';
+import { Asset } from '../interfaces/asset.interface';
+import { IndexerAssetHolding } from '../interfaces/indexer/asset-holding.interface';
+import { mapAsset, mapAssetHolding } from '../utils/algo.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -24,15 +26,14 @@ export class IndexerService {
       map((res: any) => {
         return res['assets'];
       }),
-      mergeMap((res: AssetHolding[]) => of(...res))
+      mergeMap((res: IndexerAssetHolding[]) => of(...res)),
+      map((assetHolding) => mapAssetHolding(assetHolding))
     );
   }
 
   getAssetById(assetId: number): Observable<Asset> {
     return from(this.indexerClient.lookupAssetByID(assetId as number).do()).pipe(
-      map((response) => {
-        return response['asset'];
-      })
+      map((response) => mapAsset(response['asset']))
     );
   }
 }

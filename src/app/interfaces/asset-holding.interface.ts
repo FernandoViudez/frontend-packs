@@ -1,7 +1,6 @@
 export interface AssetHolding {
   amount: number;
-  ['asset-id']: number;
+  assetId: number;
   deleted: boolean;
-  ['is-frozen']: boolean;
-  ['opted-in-at-round']: number;
+  isFrozen: boolean;
 }
